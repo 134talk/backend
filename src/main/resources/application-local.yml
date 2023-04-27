@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        
+        
+logging:
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 7
+  level:
+    root: INFO
+    kr.co.talk.doamain: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [%4L] - %m%n"
+    file: "[%d{HH:mm:ss.SSS}][%-5level][%t][%logger.%method:line%line] - %msg%n"
+  file:
+    name: "/tmp/logs/134talk.log"
