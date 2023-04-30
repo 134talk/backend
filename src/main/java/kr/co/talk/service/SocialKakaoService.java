@@ -1,19 +1,22 @@
 package kr.co.talk.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.co.talk.domain.social.LoginDto;
 import kr.co.talk.exception.CustomException;
 import kr.co.talk.global.config.JwtTokenConfig;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import static kr.co.talk.domain.social.LoginDto.*;
 import static kr.co.talk.domain.social.SocialKakaoDto.*;
+import static kr.co.talk.domain.user.LoginDto.LoginResponseDto;
+
 
 @Service
 @RequiredArgsConstructor

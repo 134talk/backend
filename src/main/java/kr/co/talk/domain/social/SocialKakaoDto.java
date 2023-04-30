@@ -1,6 +1,7 @@
 package kr.co.talk.domain.social;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import kr.co.talk.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,5 +41,12 @@ public class SocialKakaoDto {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class UserInfoDto {
         private String id;
+
+        //UserInfoDto -> User Entity
+        public User createUser(){
+            User user = new User();
+            user.setUserUid(id);
+            return user;
+        }
     }
 }
