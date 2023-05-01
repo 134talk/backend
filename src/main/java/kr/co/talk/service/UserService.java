@@ -10,20 +10,18 @@ import static kr.co.talk.domain.social.SocialKakaoDto.UserInfoDto;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createUser(UserInfoDto userInfoDto) {
+    public User createUser(UserInfoDto userInfoDto) {
         User user = userInfoDto.createUser();
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public boolean existUser(String id) {
-        User user = userRepository.findByUserUid(id);
-        if (user == null) {
-            return false;
-        }
-        return true;
+    public User findByUserUid(String userUid) {
+        return userRepository.findByUserUid(userUid);
     }
+
 }
