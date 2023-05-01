@@ -19,9 +19,10 @@ public class LoginDto {
     @AllArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class LoginResponseDto {
-        private String userUid;
+        private Long userId;
         private String accessToken;
-//        private String refreshToken;
+        private String refreshToken;
     }
+
 
 }
