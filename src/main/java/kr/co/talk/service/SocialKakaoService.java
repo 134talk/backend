@@ -1,6 +1,7 @@
 package kr.co.talk.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.co.talk.domain.user.User;
 import kr.co.talk.exception.CustomException;
 import kr.co.talk.global.config.JwtTokenConfig;
 import lombok.RequiredArgsConstructor;
@@ -39,14 +40,17 @@ public class SocialKakaoService {
         UserInfoDto userInfo = getUserInfo(tokenResponseDto.getAccess_token());
 
         //유저 정보 없으면 유저 생성 먼저 진행
-        if(userService.existUser(userInfo.getId())){
-            userService.createUser(userInfo);
+        User user = userService.findByUserUid(userInfo.getId());
+        if(user == null){
+            user = userService.createUser(userInfo);
         }
 
         //jwt 토큰 발급
-        String token = jwtTokenConfig.createJwtToken(userInfo.getId());
+        //accesstoken userId로 발급
+        String accessToken = jwtTokenConfig.createAccessToken(String.valueOf(user.getUserId()));
+        String refreshToken = jwtTokenConfig.createRefreshToken();
 
-        return new LoginResponseDto(userInfo.getId(),token);
+        return new LoginResponseDto(user.getUserId(),accessToken,refreshToken);
 
     }
 
