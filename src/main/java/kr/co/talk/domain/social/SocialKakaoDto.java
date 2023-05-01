@@ -46,6 +46,7 @@ public class SocialKakaoDto {
         public User createUser(){
             User user = new User();
             user.setUserUid(id);
+            user.setRole("ROLE_UESR");
             return user;
         }
     }

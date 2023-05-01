@@ -1,9 +1,7 @@
 package kr.co.talk.domain.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue

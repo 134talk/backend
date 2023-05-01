@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.talk.exception.CustomException;
 import kr.co.talk.global.config.JwtTokenConfig;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import static kr.co.talk.domain.user.LoginDto.LoginResponseDto;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class SocialKakaoService {
 
@@ -75,7 +77,7 @@ public class SocialKakaoService {
             responseEntity = restTemplate.postForEntity(url, new HttpEntity<>(paramMap, headers),
                     String.class);
         } catch (HttpClientErrorException e) {
-            throw new CustomException(e.getMessage(),e.hashCode());
+            throw new CustomException(e.getMessage(),e.getStatusCode().value());
         }
 
         return objectMapper.readValue(responseEntity.getBody(), TokenResponseDto.class);
@@ -104,7 +106,7 @@ public class SocialKakaoService {
             responseEntity = restTemplate.postForEntity(url, new HttpEntity<>(paramMap, headers),
                     String.class);
         } catch (HttpClientErrorException e) {
-            throw new CustomException(e.getMessage(),e.hashCode());
+            throw new CustomException(e.getMessage(),e.getStatusCode().value());
         }
         return objectMapper.readValue(responseEntity.getBody(), UserInfoDto.class);
     }
