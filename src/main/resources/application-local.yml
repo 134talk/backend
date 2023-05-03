@@ -1,4 +1,9 @@
+server:
+  shutdown: graceful
+
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 35s
   jpa:
     properties:
       hibernate:
@@ -7,8 +12,25 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        
-        
+  # OAuth 로그인
+  security:
+    oauth2:
+      kakao:
+        client-id: ${REST_API_PRIVATE_KEY}
+        client-secret: ${CLIENT_SECRET_KEY}
+        scope:
+          - account_email
+          - profile_nickname
+        authorization-grant-type: authorization_code
+        redirect-uri: http://localhost:8080/oauth/kakao/redirect
+        client-name: Kakao
+        client-authentication-method: POST
+        url:
+          login: https://kauth.kakao.com/oauth/authorize
+          token: https://kauth.kakao.com/oauth/token
+          profile: https://kapi.kakao.com/v2/user/me
+          unlink: https://kapi.kakao.com/v1/user/unlink
+
 logging:
   logback:
     rollingpolicy:
@@ -16,7 +38,7 @@ logging:
       max-history: 7
   level:
     root: INFO
-    kr.co.talk.doamain: INFO
+    kr.co.user.model: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [%4L] - %m%n"
     file: "[%d{HH:mm:ss.SSS}][%-5level][%t][%logger.%method:line%line] - %msg%n"
